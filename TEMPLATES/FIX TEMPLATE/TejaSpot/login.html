@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+  <!-- My Font -->
+  <link href="https://fonts.googleapis.com/css?family=Viga&display=swap" rel="stylesheet">
+  <!-- My CSS -->
+  <link rel="stylesheet" href="style.css">
+
+  <title>Login Hotspot</title>
+</head>
+
+<body>
+
+  $(if chap-id)
+  <form name="sendin" action="$(link-login-only)" method="post">
+    <input type="hidden" name="username" />
+    <input type="hidden" name="password" />
+    <input type="hidden" name="dst" value="$(link-orig)" />
+    <input type="hidden" name="popup" value="true" />
+  </form>
+  <script type="text/javascript" src="/md5.js"></script>
+  <script type="text/javascript">
+    <!--
+    function doLogin() {
+      document.sendin.username.value = document.login.username.value;
+      document.sendin.password.value = hexMD5('$(chap-id)' + document.login.password.value + '$(chap-challenge)');
+      document.sendin.submit();
+      return false;
+    }
+    //
+    -->
+  </script>
+  $(endif)
+
+  <!-- navigasi -->
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container">
+      <a class="navbar-brand" href="#"> Ridha<span>Spot</span></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav ml-auto">
+          <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
+          <a class="nav-item nav-link" href="#fitur">Fitur</a>
+          <a class="nav-item nav-link" href="#harga">Paket</a>
+          <a class="nav-item btn btn-primary tombol" href="#kontak">Dapatkan Kode Voucher</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <!-- akhir navigasi -->
+  <!-- jumbotron -->
+  <div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <!-- card -->
+      <div class="card bg-transparent border-dark text-white shadow p-3 mb-5 " style="width: 22rem;">
+        <div class="card-body">
+          <h5 class="card-title text-center">Masukkan Kode Voucher</h5>
+
+          <div id="error" class='error'>
+            <script type="text/javascript">
+              var error = "$(error)";
+              if (error == "credit limit reached") {
+                document.write(
+                  '<div class="alert alert-danger"><i class="icon-attention-circled"></i>Batas kredit user <b>$(username)</b> sudah habis</div>'
+                );
+              } else if (error == "uptime limit reached") {
+                document.write(
+                  '<div class="alert alert-danger"><i class="icon-attention-circled"></i>Masa aktif user <b>$(username)</b> sudah habis</div>'
+                );
+              } else if (error == "download limit reached") {
+                document.write(
+                  '<div class="alert alert-danger"><i class="icon-attention-circled"></i>Kuota user <b>$(username)</b> telah habis</div>'
+                );
+              } else if (error == "no valid profile found") {
+                document.write(
+                  '<div class="alert alert-danger"><i class="icon-attention-circled"></i>Masa aktif user <b>$(username)</b> telah habis</div>'
+                );
+              } else if (error == "invalid password") {
+                document.write(
+                  '<div class="alert alert-danger"><i class="icon-attention-circled"></i>username / password tidak valid. Perhatikan penulisan kapital abjad!</div>'
+                );
+              } else if (error == "simultaneous session limit reached") {
+                document.write(
+                  '<div class="alert alert-danger"><i class="icon-attention-circled"></i>User <b>$(username)</b> sudah login di device lain</div>'
+                );
+              } else if (error) {
+                document.write('<div class="alert alert-danger"><i class="icon-attention-circled"></i>$(error)</div>');
+              }
+            </script>
+          </div>
+
+          <!-- FormLogin -->
+
+          <form name="login" action="$(link-login-only)" method="post" $(if chap-id) onSubmit="return doLogin()"
+            $(endif)>
+            <input type="hidden" name="dst" value="$(link-orig)" />
+            <input type="hidden" name="popup" value="true" />
+
+            <div class="form-group">
+              <label for="exampleInputEmail1">Username</label>
+              <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                autocomplete="off" name="username" value="$(username)" required>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Password</label>
+              <input type="password" class="form-control" id="exampleInputPassword1" name="password">
+            </div>
+            <input type="hidden" name="dst" value="$(link-orig)" />
+            <input type="hidden" name="popup" value="true" />
+            <button type="submit" class="btn btn-primary mr-2">Login</button>
+            $(if trial == 'yes')
+            <a href="$(link-login-only)?dst=$(link-orig-esc)&amp;username=T-$(mac-esc)" class="btn btn-secondary">
+              Cek Koneksi
+            </a>
+            $(endif)
+          </form>
+
+          <!-- EndFormLogin -->
+
+
+        </div>
+      </div>
+      <!-- akhir card -->
+    </div>
+    <div class="fitur" id="fitur">
+    </div>
+  </div>
+  <!-- akhir jumbotron -->
+
+
+  <!-- info panel -->
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-10 info-panel">
+        <div class="row">
+          <div class="col-lg ">
+            <a href="https://laksa19.github.io/myqr/">
+              <img src="img/icons8_qr_code_80px.png" alt="QR" class="float-left">
+              <h4>Login via QR Code</h4>
+              <p class="panjang">
+                buka http://Ridha.spot di chrome, Tap icon QR Code untuk login
+              </p>
+            </a>
+
+          </div>
+          <div class="col-lg">
+            <a href="#kontak">
+              <img src="img/icons8_movie_ticket_80px_1.png" alt="QR" class="float-left">
+              <h4>Kode Voucher</h4>
+              <p>
+                Dapatkan kode voucher...
+              </p>
+            </a>
+          </div>
+          <div class="col-lg ">
+            <a href="#">
+              <img src="img/icons8_trolley_80px.png" alt="QR" class="float-left">
+              <h4>Layanan</h4>
+              <p>
+                Comming Soon...
+              </p>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Map & Kontak-->
+    <div class="row ">
+      <div class="col-lg map">
+        <!-- Modal -->
+        <!-- <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+          aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">Ngopi Skuy</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <img src="img/kopi.jpg" alt="map" class="img-fluid">
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <div class="asli d-flex justify-content-center">
+          <img src="img/kopi.jpg" alt="Map Hotspot" class="img-fluid" onclick="" data-toggle="modal"
+            data-target="#exampleModalCenter">
+        </div> -->
+      </div>
+
+      <div class="col-lg-12 kontak" id="kontak">
+        <img src="img/icons8_place_marker_90px.png" alt="kontak">
+        <br>
+        <p>Kode Voucher bisa didapatkan di </p>
+        <h4><span>Warkop Ridha</span></h4>
+        <hr>
+      </div>
+    </div>
+    <!-- EndMap -->
+    <!-- Pricing -->
+    <!-- <h4 class="text-center harga" id="harga">Paket</h4>
+    <div class="row harga">
+      <div class="col-lg">
+        <div class="card" style="width: 16rem;">
+          <img src="img/1D.png" class="card-img-top" alt="Paket 1 hari">
+          <div class="card-body text-center">
+            <p class="card-text">Bandwith Up to 1Mbps</p>
+            <p class="card-text">Unlimited</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg">
+        <div class="card" style="width: 15rem;">
+          <img src="img/2D.png" class="card-img-top" alt="Paket 2 hari">
+          <div class="card-body text-center">
+            <p class="card-text">Bandwith Up to 1Mbps</p>
+            <p class="card-text">Unlimited</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg">
+        <div class="card" style="width: 15rem;">
+          <img src="img/7D.png" class="card-img-top" alt="Paket 7 hari">
+          <div class="card-body text-center">
+            <p class="card-text">Bandwith Up to 1Mbps</p>
+            <p class="card-text">Unlimited</p>
+          </div>
+        </div>
+      </div>
+    </div> -->
+    <!-- EndPricing -->
+    <!-- Qoutes -->
+    <div class="row text-center justify-content-center">
+      <div class="col-10 qoutes">
+        <h5>
+          "Seluruh dunia kini berada di genggaman Anda, kesempatan eksplorasi ada di otak Anda.
+          <p>Bijaklah menggunakan internet
+            untuk kebaikan hidup Anda"</p>
+        </h5>
+      </div>
+    </div>
+    <!-- EndQoutes -->
+    <!-- footer -->
+    <div class="row footer justify-content-center text-center">
+      <div class="col-6">
+        <hr>
+        2020 All Right Reserved by @nrdnisml
+      </div>
+    </div>
+    <!-- endfoorter -->
+  </div>
+  <!-- akhir info panel -->
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="assets/js/jquery.js">
+  </script>
+  <script src="assets/js/popper.js">
+  </script>
+  <script src="assets/js/bootstrap.min.js">
+  </script>
+
+  <script type="text/javascript">
+    document.login.username.focus();
+  </script>
+
+  $(if chap-id)
+  <script type="text/javascript" src="md5.js"></script>
+  <script type="text/javascript">
+    $('#loginForm').submit(function () {
+      var password = $('#inputPassword');
+      password.val(hexMD5('$(chap-id)' + password.val() + '$(chap-challenge)'));
+    });
+  </script>
+  $(endif)
+  <script>
+    $("#menu-toggle").click(function (e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+    });
+  </script>
+
+  <!-- <script>
+    window.intergramId = "612177944";
+    window.intergramCustomizations = {
+      titleClosed: 'Chat Admin',
+      titleOpen: 'Chat',
+      introMessage: 'Hallo, jika kesulitan login silahkan kirim username voucher anda',
+      autoResponse: 'pesan anda telah terkirim, mohon tunggu admin akan segera membalas pesan anda',
+      autoNoResponse: 'Wah admin lagi sibuk nih' +
+        'silahkan hubungi via wa 085231634078',
+      mainColor: "#E91E63", // Can be any css supported color 'red', 'rgb(255,87,34)', etc
+      alwaysUseFloatingButton: false // Use the mobile floating button also on large screens
+    };
+  </script>
+  <script id="intergram" type="text/javascript" src="https://www.intergram.xyz/js/widget.js"></script> -->
+</body>
+
+</html>

@@ -1,0 +1,106 @@
+<html>
+<head>
+<title>mikrotik hotspot > status</title>
+$(if refresh-timeout)
+<meta http-equiv="refresh" content="$(refresh-timeout-secs)">
+$(endif)
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="expires" content="-1">
+
+<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+	<!-- My Font -->
+	<link href="https://fonts.googleapis.com/css?family=Viga&display=swap" rel="stylesheet">
+	<!-- My CSS -->
+	<link rel="stylesheet" href="style.css">
+
+<script language="JavaScript">
+<!--
+$(if advert-pending == 'yes')
+    var popup = '';
+    function focusAdvert() {
+	if (window.focus) popup.focus();
+    }
+    function openAdvert() {
+	popup = open('$(link-advert)', 'hotspot_advert', '');
+	setTimeout("focusAdvert()", 1000);
+    }
+$(endif)
+    function openLogout() {
+	if (window.name != 'hotspot_status') return true;
+        open('$(link-logout)', 'hotspot_logout', 'toolbar=0,location=0,directories=0,status=0,menubars=0,resizable=1,width=280,height=250');
+	window.close();
+	return false;
+    }
+//-->
+</script>
+</head>
+<body bottommargin="0" topmargin="0" leftmargin="0" rightmargin="0"
+$(if advert-pending == 'yes')
+	onLoad="openAdvert()"
+$(endif)
+>
+<!-- navigasi -->
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<div class="container">
+			<a class="navbar-brand" href="#"> Teja<span>Spot</span></a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+				aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+				<div class="navbar-nav ml-auto">
+					<a class="nav-item btn btn-primary tombol" href="https://bindaud.store">Products</a>
+				</div>
+			</div>
+		</div>
+	</nav>
+	<!-- akhir navigasi -->
+
+<table class="table">
+
+<tr>
+<td align="center" valign="middle">
+<form action="$(link-logout)" name="logout" onSubmit="return openLogout()">
+<table border="1" class="tabula">
+$(if login-by == 'trial')
+	<br><div style="text-align: center;">Hallo anda berhasil terkoneksi! akan expired dalam 10menit</div><br>
+$(elif login-by != 'mac')
+	<br><div style="text-align: center;">Hallo $(username) ! Anda berhasil login</div><br>
+$(endif)
+	<tr><td align="right">IP address:</td><td>$(ip)</td></tr>
+	<tr><td align="right">Upload / Download:</td><td>$(bytes-in-nice) / $(bytes-out-nice)</td></tr>
+$(if session-time-left)
+	<tr><td align="right">connected / left:</td><td>$(uptime) / $(session-time-left)</td></tr>
+$(else)
+	<tr><td align="right">Lama koneksi:</td><td>$(uptime)</td></tr>
+$(endif)
+$(if blocked == 'yes')
+	<tr><td align="right">status:</td><td><div style="color: #FF8080">
+<a href="$(link-advert)" target="hotspot_advert">advertisement</a> required</div></td>
+$(elif refresh-timeout)
+	<tr><td align="right">status refresh:</td><td>$(refresh-timeout)</td>
+$(endif)
+
+</table>
+$(if login-by-mac != 'yes')
+<br>
+<!-- user manager link. if user manager resides on other router, replace $(hostname) by its address
+<button onclick="document.location='http://$(hostname)/user?subs='; return false;">status</button>
+<!-- end of user manager link -->
+<input type="submit" class="btn btn-primary" value="log off">
+$(endif)
+</form>
+
+</td>
+</table>
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="assets/js/jquery.js">
+	</script>
+	<script src="assets/js/popper.js">
+	</script>
+	<script src="assets/js/bootstrap.min.js">
+	</script>
+</body>
+</html>
